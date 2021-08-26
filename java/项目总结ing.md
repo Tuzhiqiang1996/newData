@@ -312,6 +312,15 @@ impl
 ```java
  同样是获取分页数据查询 可查询
 
+
+
+  @Resource
+    private JdbcTemplate jdbcTemplate;
+    @Autowired
+    TbDeviceListRe705Service tbDeviceListRe705Service;
+    @Resource
+    private TbDeviceListRe705Mapper tbDeviceListRe705Mapper;
+
 @GetMapping("/getlists")
     public Result getlists(Integer currentPage) {
         if (currentPage == null || currentPage < 1) {
@@ -319,7 +328,9 @@ impl
         }
         Integer rows = 100;
      //这里只能获取固定区间内的数据 比如第一页1000条数据 一次类推  并不理想 还没有上一条的好   所以果断放弃
-        List<TbDeviceListRe705> devLists = tbDeviceListRe705Mapper.selectPage(new Page<TbDeviceListRe705>(1, 1000), new EntityWrapper<TbDeviceListRe705>());
+//不能返回全部的信息  总数 总条数
+ Page iPage = new Page<>(currentPage, rows);
+        List<TbDeviceListRe705> devLists = tbDeviceListRe705Mapper.selectPage(iPage, new EntityWrapper<TbDeviceListRe705>());
      //第二种是可以的 OK
         //传递Page对象 之后可以动态的获取所有的分页数据
         Page iPage = new Page<>(currentPage, rows);
