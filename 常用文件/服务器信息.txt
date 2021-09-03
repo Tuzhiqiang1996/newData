@@ -1,0 +1,37 @@
+﻿服务器IP			用户名				密码			远程密码
+
+120.78.231.82		MtGCpGkQm			`UNEWDZvMsKsYns	
+10.80.243.137 		root				`7KxsxUn1BPLN`l32
+120.79.50.47		MtGCpGkYm			`UNDWDZvMsKsYns
+172.18.75.85        root	            `7KxsxUn1BPLN`47       259835
+
+					
+
+数据库内网：mysql3308:3306
+数据库外网：120.78.231.82:3308
+用户名：ucadmin
+密码：XdJmWiyrJu7D
+			
+REDIS服务器			
+r-wz97d6ea31f67ba4.redis.rds.aliyuncs.com:6379		7F08QYVLDpkIaNUXyJafKQ	
+云数据库			uceerds	XdJmWiyrJu7D	
+redis			120.77.51.103			5e30c2be7c96	
+
+
+http://221.232.128.6/edzcx/tchcsspage/selectcard2.jsp?case_id=4203810412018050280001
+
+
+http://online.mediatek.com/                        
+          3G登陆账号 : waterworld-rd@waterworld.com.cn    密码：Ww@online11&06
+          4G登陆帐号：eservice01@lentek.com.cn                 密码：ltk*Online811#
+          
+
+Eservice 系统帐号信息如下：
+     https://eservice.mediatek.com/eservice-portal/login
+          3G登陆帐号：sbin_hexing         密码 : Ww(es)0811
+          4G登录账号：wtwd_lentek        密码 : ltkes#8@11
+
+
+
+
+

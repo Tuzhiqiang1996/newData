@@ -1,0 +1,19 @@
+Elastic日报 第82期 (2017-10-27) 
+1、基于HBase+ ElasticSearch的车联网的应用
+http://t.cn/RWoD1x8 
+2、携程大数据实践：高并发应用架构及推荐系统案例 
+http://t.cn/RWoDFX8 
+3、Elasticsearch相关度计算原理
+http://t.cn/RWK4SQN
+4、搞清楚logstash、filebeat到底什么区别？
+http://t.cn/RWKPDDj
+
+编辑：laoyang360
+归档：https://www.elasticsearch.cn/article/340
+订阅：https://tinyletter.com/elastic-daily
+
+并行编程中的设计模式：
+http://www.cnblogs.com/kaige/archive/2012/04/10/2439823.html
+
+电子货架标签
+https://www.zhihu.com/question/45429303?sort=created

@@ -1,0 +1,48 @@
+http://blog.csdn.net/cnbird2008/article/details/38762795
+
+nohup /searchspace/kibana-5.6.2/bin/kibana &
+
+curl '120.77.51.32:9200/_cat/indices?v'
+curl -XDELETE 'http://120.77.51.32:9200/logstash-*'
+  
+
+curl -XPUT 'http://120.77.51.32:9200/twitter/tweet/1' -d '{
+    "user" : "kimchy",
+    "post_date" : "2009-11-15T14:12:12",
+    "message" : "trying out Elasticsearch"
+}'
+
+
+GET _search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
+
+GET _search  
+{  
+    "query": {  
+        "match_phrase": {  
+            "message": "logstash demo message"  
+        }  
+    }  
+}  
+
+input {
+   redis {
+        data_type => "list" 
+        key => "logstash:demo" 
+        host => "127.0.0.1" 
+        port => 6379
+    }
+}
+
+output {
+    elasticsearch {
+        hosts => ["192.168.44.134:9200"]
+        index => "logstash-log"
+        codec => rubydebug
+    }
+}
