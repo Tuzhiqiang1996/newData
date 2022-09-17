@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Canvas Color Picker Wheel</title>
+
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+      /* *{margin:0px; padding: 0px;} */
+    </style>
+     <script>
+        (function () {
+          var html = document.documentElement;
+          var width = html.getBoundingClientRect().width;
+          html.style.fontSize = width / 35+ "px"; //至于除数15可自行设置
+          //1rem=50;
+        })();
+      </script>
+  </head>
+
+  <body>
+    <div class="view"></div>
+
+    <script src="js/index.js"></script>
+  </body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>元旦快乐:公众号AlbertYang</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+
+    body {
+      overflow: hidden;
+    }
+
+
+    p {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: #f1f1f1;
+    }
+
+
+    p .box {
+      position: absolute;
+      width: 450px;
+      height: 450px;
+    }
+
+
+    p .box .circle {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #fff, #e4e3e8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+    }
+
+
+    p .box .circle::before {
+      content: "";
+      position: absolute;
+      left: 5px;
+      top: 5px;
+      right: 5px;
+      bottom: 5px;
+      background: linear-gradient(315deg, #fff, #e4e3e8);
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+
+    p .text {
+      position: absolute;
+      font-size: 6em;
+      color: #ff2a2a;
+      z-index: 2;
+    }
+
+
+    p .text span {
+      display: inline-block;
+      animation: blink 3s 2s infinite;
+      animation-delay: calc(var(--x) * 0.5s);
+    }
+
+
+    p i {
+      position: absolute;
+      background: #FF2A2A;
+      border-radius: 50%;
+      animation: animate linear infinite;
+    }
+
+
+    p i:nth-child(even) {
+      background: transparent;
+      border: 1px solid #FF2A2A;
+    }
+
+
+    @keyframes animate {
+      0% {
+        transform: translateY(0);
+        opacity: 0;
+        filter: hue-rotate(0deg);
+      }
+
+
+      10%,
+      90% {
+        opacity: 1;
+      }
+
+
+      100% {
+        transform: translateY(-3000%);
+        opacity: 0;
+        filter: hue-rotate(36000deg);
+      }
+    }
+
+
+    @keyframes blink {
+      0% {
+        transform: scale(0);
+        opacity: 0;
+        filter: hue-rotate(0deg);
+      }
+
+
+      30%,
+      50%,
+      80% {
+        transform: scale(1.3);
+        opacity: 1;
+      }
+
+
+      100% {
+        transform: scale(0);
+        opacity: 0;
+        filter: hue-rotate(3600deg);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <p>
+  <div class="box">
+    <dic class="circle">
+      <div class="text">
+        <!-- <span style="--x:0">元</span>
+        <span style="--x:1">旦</span>
+        <br />
+        <span style="--x:2">快</span>
+        <span style="--x:3">乐</span> -->
+      </div>
+    </dic>
+  </div>
+  </p>
+  <script>
+    const bubbles = () => {
+      let count = 300;
+      let p = document.querySelector("p");
+      for (let i = 0; i < count; i++) {
+        let bubble = document.createElement('i');
+        let x = Math.floor(Math.random() * window.innerWidth);
+        y = Math.floor(Math.random() * window.innerHeight);
+
+
+        let size = Math.random() * 60;
+        bubble.style.left = x + 'px';
+        bubble.style.top = y + 'px';
+        bubble.style.width = size + 'px';
+        bubble.style.height = size + 'px';
+        bubble.style.animationDuration = 5 + size + 's';
+        bubble.style.animationDelay = -size + 's';
+
+
+        p.appendChild(bubble);
+      }
+    }
+    bubbles()
+  </script>
+</body>
+
+</html>

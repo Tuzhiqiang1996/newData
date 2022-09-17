@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .ucd-colorpicker-handle {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        box-shadow: 0px 0.1388rem 0.1388rem rgba(0, 0, 0, 0.2);
+        width: 0.9444rem;
+        height: 0.9444rem;
+        border-radius: 100%;
+        border: 0.055rem solid #fff;
+      }
+
+      .ucd-colorpicker-wrapper {
+        bottom: 1.7819rem;
+      }
+
+      .ucd-colorpicker-wrapper {
+        width: 6.6666rem;
+        margin: 0 auto;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 2rem;
+      }
+      .ucd-colorpicker-canvas {
+        width: 100%;
+      }
+      .ucd-colorpicker-handle {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        box-shadow: 0px 0.1388rem 0.1388rem rgba(0, 0, 0, 0.2);
+        width: 0.9444rem;
+        height: 0.9444rem;
+        border-radius: 100%;
+        border: 0.055rem solid #fff;
+      }
+    </style>
+    <script>
+      (function () {
+        var html = document.documentElement;
+        var width = html.getBoundingClientRect().width;
+        html.style.fontSize = width / 10 + "px"; //至于除数15可自行设置
+        //1rem=50;
+      })();
+    </script>
+    <script src="./jQuery.min.js"></script>
+  </head>
+  <body>
+    <div class="ucd-colorpicker-wrapper">
+      <canvas class="ucd-colorpicker-canvas"></canvas>
+
+      <div
+        class="ucd-colorpicker-handle"
+        style="background-color: rgb(255, 255, 255)"
+      ></div>
+    </div>
+    <script>
+      var t = $("body").find("canvas"),
+        e = t[0].getContext("2d"),
+        i = 246.6642;
+
+      t.attr({ width: 6 * i, height: 6 * i }),
+        (function (t, e, i, n, s) {
+          var a = e[0] || e,
+            o = e[1] || e,
+            r = i[0] || i,
+            l = i[1] || i,
+            c = 360,
+            d = Math.PI / 180;
+
+          for (
+            t.save(),
+              t.translate(a - r, o - l),
+              t.scale(r, l),
+              n = c / n || 360;
+            c > 0;
+            c -= n
+          )
+            t.beginPath(),
+              360 !== n && t.moveTo(1, 1),
+              t.arc(1, 1, 1, (c - n / 2 - 1) * d, (c + n / 2 + 1) * d),
+              s ? s(t, c) : ((t.fillStyle = "black"), t.fill());
+          t.restore();
+        })(e, [3 * i, 3 * i], [3 * i - 1, 3 * i - 1], 360, function (t, e) {
+          var i = t.createRadialGradient(1, 1, 1, 1, 1, 0);
+          i.addColorStop(0, "hsl(" + (360 - e) + ", 100%, 50%)"),
+            i.addColorStop(1, "#FFFFFF"),
+            (t.fillStyle = i),
+            t.fill();
+        });
+    </script>
+    <!-- <script>
+      (function () {
+        var dragging = false;
+        var boxX, boxY, mouseX, mouseY, offsetX, offsetY;
+        var box = $(".ucd-colorpicker-handle")[0];
+        var box1 = $(".ucd-colorpicker-canvas")[0];
+
+        // 鼠标按下的动作
+        // box.onmousedown = down;
+        box.addEventListener(
+          "touchstart", // 鼠标按下后的函数,e为事件对象
+          function down(e) {
+            dragging = true;
+
+            // 获取元素所在的坐标
+            boxX = box.offsetLeft;
+            boxY = box.offsetTop;
+
+            // 获取鼠标所在的坐标
+            mouseX = parseInt(getMouseXY(e).x);
+            mouseY = parseInt(getMouseXY(e).y);
+
+            // 鼠标相对元素左和上边缘的坐标
+            offsetX = mouseX - boxX;
+            offsetY = mouseY - boxY;
+          }
+        );
+        // 鼠标的移动动作
+        // document.onmousemove = move;
+        box.addEventListener("touchmove",
+          // 鼠标移动调用的函数
+          function move(e) {
+          if (dragging) {
+            // 获取移动后的元素的坐标
+            var x = getMouseXY(e).x - offsetX;
+            var y = getMouseXY(e).y - offsetY;
+
+            // 计算可移动位置的大小， 保证元素不会超过可移动范围
+            // 此处就是父元素的宽度减去子元素宽度
+            var width = box1.clientWidth - box.offsetWidth;
+            var height = box1.clientHeight - box.offsetHeight;
+
+            // min方法保证不会超过右边界，max保证不会超过左边界
+            x = Math.min(Math.max(0, x), width);
+            y = Math.min(Math.max(0, y), height);
+
+            // 给元素及时定位
+            box.style.left = x + "px";
+            box.style.top = y + "px";
+          }
+        });
+        // 释放鼠标的动作
+        // document.onmouseup = up;
+        box.addEventListener("touchend", // 释放鼠标的函数
+        function up(e) {
+          dragging = false;
+        });
+
+
+
+
+
+        // 函数用于获取鼠标的位置
+        function getMouseXY(e) {
+          var x = 0,
+            y = 0;
+          e = e || window.event;
+
+          if (e.targetTouches[0].pageX) {
+            x = e.targetTouches[0].pageX;
+            y = e.targetTouches[0].pageY;
+          } else {
+            x = e.clientX + document.body.scrollLeft - document.body.clientLeft;
+            y = e.clientY + document.body.scrollTop - document.body.clientTop;
+          }
+          return {
+            x: x,
+            y: y,
+          };
+        }
+      })();
+    </script> -->
+    <!-- <script>
+      //限制区域bug
+      function move() {
+        // 获取元素和初始值
+        var oBox = $(".ucd-colorpicker-handle")[0],
+          disX = 0,
+          disY = 0;
+        // 获取浏览器可见区域宽高，div宽高
+        var browserWidth = $(".ucd-colorpicker-canvas")[0].clientWidth,
+          browserHeight = $(".ucd-colorpicker-canvas")[0].clientHeight,
+          boxWidth = oBox.offsetWidth,
+          boxHeight = oBox.offsetHeight;
+        // 容器鼠标按下事件
+        console.log("d", browserWidth, browserHeight, boxWidth, boxHeight);
+        oBox.addEventListener("touchstart", function (e) {
+          var e = e || window.event;
+          // 鼠标相对于div左侧位置
+          console.log(e);
+          disX = e.targetTouches[0].pageX - this.offsetLeft;
+          disY = e.targetTouches[0].pageY - this.offsetTop;
+          oBox.addEventListener(
+            "touchmove",
+
+            function (e) {
+              var e = e || window.event;
+              oBox.style.left = e.targetTouches[0].pageX - disX + "px";
+              if (e.targetTouches[0].pageX - disX <= 0) {
+                oBox.style.left = 0;
+              } else if (
+                boxWidth - disX + e.targetTouches[0].pageX >=
+                browserWidth
+              ) {
+                oBox.style.left = browserWidth - boxWidth + "px";
+              }
+              oBox.style.top = e.targetTouches[0].pageY - disY + "px";
+              if (e.targetTouches[0].pageY - disY <= 0) {
+                oBox.style.top = 0;
+              } else if (
+                boxHeight - disY + e.targetTouches[0].pageY >=
+                browserHeight
+              ) {
+                oBox.style.top = browserHeight - boxHeight + "px";
+              }
+            }
+          );
+
+          oBox.addEventListener("touchend", function () {
+            document.onmousemove = null;
+            document.onmouseup = null;
+          });
+          return false;
+        });
+      }
+      move();
+    </script> -->
+    <script>
+      //拖拽1
+      //  e.preventDefault(),
+      //       e.stopPropagation(),
+      var div = $(".ucd-colorpicker-handle")[0];
+
+      var startX = 0; // 获取手指初始坐标
+      var startY = 0;
+      var x = 0; // 获得盒子原来的位置
+      var y = 0;
+      // 手指触摸
+      div.addEventListener("touchstart", function (e) {
+        // 获取手指初始坐标
+        startX = e.targetTouches[0].pageX;
+        startY = e.targetTouches[0].pageY;
+        x = this.offsetLeft;
+        y = this.offsetTop;
+        this.style.boxShadow = "0 0 15px rgba(0, 0, 0, .6)";
+      });
+      // 手指离开
+      div.addEventListener("touchend", function (e) {
+        this.style.boxShadow = "";
+      });
+
+      // 手指按住移动
+      div.addEventListener("touchmove", function (e) {
+        // 计算手指的移动距离：手指移动之后的坐标减去手指初始的坐标
+        var moveX = e.targetTouches[0].pageX - startX;
+        var moveY = e.targetTouches[0].pageY - startY;
+        //
+
+        //
+        // 移动盒子 盒子原来的位置 + 手指移动的距离
+        this.style.left = x + moveX + "px";
+        this.style.top = y + moveY + "px";
+        e.preventDefault(); // 阻止屏幕滚动的默认行为
+      });
+    </script>
+    <!-- <script>
+      (function () {
+    var dragging = false
+    var boxX, boxY, mouseX, mouseY, offsetX, offsetY
+    var box = $(".ucd-colorpicker-handle")[0];
+    var box1 = $(".ucd-colorpicker-canvas")[0];
+    // var box = document.getElementById('box')
+    // var box1 = document.getElementById('box1')
+
+    // 鼠标按下的动作
+    box.onmousedown = down
+    // 鼠标的移动动作
+    document.onmousemove = move
+    // 释放鼠标的动作
+    document.onmouseup = up
+
+    // 鼠标按下后的函数,e为事件对象
+    function down(e) {
+        dragging = true
+
+        // 获取元素所在的坐标
+        boxX = box.offsetLeft
+        boxY = box.offsetTop
+
+        // 获取鼠标所在的坐标
+        mouseX = parseInt(getMouseXY(e).x)
+        mouseY = parseInt(getMouseXY(e).y)
+
+        // 鼠标相对元素左和上边缘的坐标
+        offsetX = mouseX - boxX
+        offsetY = mouseY - boxY
+    }
+
+    // 鼠标移动调用的函数
+    function move(e){
+        if (dragging) {
+            // 获取移动后的元素的坐标
+            var x = getMouseXY(e).x - offsetX
+            var y = getMouseXY(e).y - offsetY
+
+            // 计算可移动位置的大小， 保证元素不会超过可移动范围
+            // 此处就是父元素的宽度减去子元素宽度
+            var width = box1.clientWidth - box.offsetWidth
+            var height = box1.clientHeight - box.offsetHeight
+
+            // min方法保证不会超过右边界，max保证不会超过左边界
+            x = Math.min(Math.max(0, x), width)
+            y = Math.min(Math.max(0, y), height)
+
+            // 给元素及时定位
+            box.style.left = x + 'px'
+            box.style.top = y + 'px'
+        }
+    }
+
+    // 释放鼠标的函数
+    function up(e){
+        dragging = false
+    }
+
+    // 函数用于获取鼠标的位置
+    function getMouseXY(e){
+        var x = 0, y = 0
+        e = e || window.event
+
+        if (e.pageX) {
+            x = e.pageX
+            y = e.pageY
+        } else {
+            x = e.clientX + document.body.scrollLeft - document.body.clientLeft
+            y = e.clientY + document.body.scrollTop - document.body.clientTop
+        }
+        return {
+            x: x,
+            y: y
+        }
+    }
+})()
+    </script> -->
+  </body>
+</html>

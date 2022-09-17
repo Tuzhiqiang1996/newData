@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+    <script>
+        (function () {
+          var html = document.documentElement;
+          var width = html.getBoundingClientRect().width;
+          html.style.fontSize = width / 10 + "px"; //至于除数15可自行设置
+          //1rem=50;
+        })();
+      </script>
+</head>
+<body>
+    <div id="picker"></div>
+
+    <script src="./index.js"></script>
+</body>
+</html>

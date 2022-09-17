@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        * { touch-action: pan-y; }
+    </style>
+  </head>
+  <body>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+    <script>
+      $("body").on("touchstart", function (e) {
+        e.preventDefault();
+        (startX = e.originalEvent.changedTouches[0].pageX),
+          (startY = e.originalEvent.changedTouches[0].pageY);
+      });
+      $("body").on("touchmove", function (e) {
+        e.preventDefault();
+        (moveEndX = e.originalEvent.changedTouches[0].pageX),
+          (moveEndY = e.originalEvent.changedTouches[0].pageY),
+          (X = moveEndX - startX),
+          (Y = moveEndY - startY);
+
+        if (Math.abs(X) > Math.abs(Y) && X > 0) {
+          console.log("left 2 right");
+        } else if (Math.abs(X) > Math.abs(Y) && X < 0) {
+          console.log("right 2 left");
+        } else if (Math.abs(Y) > Math.abs(X) && Y > 0) {
+          console.log("top 2 bottom");
+        } else if (Math.abs(Y) > Math.abs(X) && Y < 0) {
+          console.log("bottom 2 top");
+        } else {
+          console.log("just touch");
+        }
+      });
+
+      var windowHeight = $(window).height(),
+        $body = $("body"); // console.log($(window).height()); //627 // console.log($('body').height()); //0
+      $body.css("height", windowHeight); //重要代码
+    </script>
+  </body>
+</html>
